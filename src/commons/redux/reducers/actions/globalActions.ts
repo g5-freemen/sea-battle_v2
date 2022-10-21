@@ -1,0 +1,14 @@
+export const SET_LANGUAGE = 'SET_LANGUAGE';
+export const SET_ARRANGE_SHIPS_MODE = 'SET_ARRANGE_SHIPS_MODE';
+export const SET_SHIPS_ARRANGED = 'SET_SHIPS_ARRANGED';
+export const SET_PLAYER_SHIPS = 'SET_PLAYER_SHIPS';
+export const SET_COMP_SHIPS = 'SET_COMP_SHIPS';
+export const SET_SHIPS_LIST = 'SET_SHIPS_LIST';
+export const SET_PLAYER_BF = 'SET_PLAYER_BF';
+export const SET_COMP_BF = 'SET_COMP_BF';
+export const SET_BF_COORD = 'SET_BF_COORD';
+export const SET_BF_COORD_PC = 'SET_BF_COORD_PC';
+export const SET_TURN = 'SET_TURN';
+export const SET_TURN_NUM = 'SET_TURN_NUM';
+export const RESET_STATE = 'RESET_STATE';
+export const SAVE_HISTORY = 'SAVE_HISTORY';

@@ -1,0 +1,19 @@
+body {
+  background: url('../img/grid.webp');
+}
+
+body * {
+  font-family: 'SegoePrint';
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+select {
+  cursor: pointer;
+}

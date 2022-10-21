@@ -1,0 +1,80 @@
+.timeMachine {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  top: 1vh;
+  left: 3vmin;
+  width: max-content;
+  height: 3vmax;
+}
+
+.backBtn {
+  font-size: 2rem;
+  border: none;
+  background: none;
+  transition: all 0.5s;
+  color: blue;
+  outline: none;
+}
+
+.backBtn:disabled {
+  color: gray;
+  pointer-events: none;
+}
+
+.backBtn:hover {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
+.turnCounter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3vmax;
+  height: 3vmax;
+  border: 3px solid blue;
+  border-radius: 50%;
+  font-weight: bold;
+  transition: all 1s;
+}
+
+.turnCounter:hover {
+  transform: rotateZ(-360deg);
+}
+
+.info {
+  position: absolute;
+  bottom: 10%;
+  left: 50vw;
+  transform: translateX(-50%);
+  display: flex;
+  min-width: 40vw;
+  width: max-content;
+  padding: 1vmax 4vmax;
+  justify-content: center;
+  align-items: center;
+  gap: 1vmin;
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+  border: dashed 3px blue;
+  border-radius: 5vmax;
+}
+
+.info p {
+  width: max-content;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.restartBtn {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  width: 20px;
+  height: 20px;
+  background: url('../../../assets/img/reload.svg') no-repeat;
+  background-size: contain;
+}

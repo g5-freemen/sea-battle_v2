@@ -1,0 +1,10 @@
+.ship {
+  margin: 0 33px 33px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid blue;
+  box-sizing: border-box;
+  font-size: 14px;
+  background: repeating-linear-gradient(-45deg, #555 0, #555 2px, transparent 1px, transparent 5px);
+}

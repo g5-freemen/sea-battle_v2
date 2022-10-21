@@ -1,0 +1,5 @@
+@font-face {
+  font-family: 'SegoePrint';
+  src: url('../fonts/SegoePrint.woff') format('woff');
+  font-display: swap;
+}

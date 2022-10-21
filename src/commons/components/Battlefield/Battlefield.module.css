@@ -1,0 +1,152 @@
+.wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  transition: all 1s;
+  min-height: 100vh;
+}
+
+.darken {
+  background-color: #0093e9;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+  opacity: 0.5;
+}
+
+.title {
+  margin: 0 auto;
+  font-size: 30px;
+  text-decoration: underline;
+  transition: all 1s ease;
+}
+
+.title:hover {
+  cursor: none;
+  color: red;
+  transform: rotateY(360deg);
+}
+
+.btnLang {
+  position: absolute;
+  width: 3vmax;
+  height: 3vmax;
+  right: 1vmin;
+  top: 1vmin;
+  background: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.battlefield {
+  display: grid;
+  grid-template-areas:
+    '. d d d d d d d d d d'
+    'l c c c c c c c c c c'
+    'l c c c c c c c c c c'
+    'l c c c c c c c c c c'
+    'l c c c c c c c c c c'
+    'l c c c c c c c c c c'
+    'l c c c c c c c c c c'
+    'l c c c c c c c c c c'
+    'l c c c c c c c c c c'
+    'l c c c c c c c c c c';
+  margin: 13px 60px 30px 33px;
+  padding: 0;
+  width: 368.5px;
+  height: 366px;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.battlefieldPad {
+  margin-left: 3px;
+  padding: 0;
+  display: grid;
+  width: 332px;
+  height: 332px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-area: c;
+  text-align: center;
+  border: 2px solid blue;
+  box-sizing: border-box;
+}
+
+.shipEl,
+.empty,
+.deadarea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 0.7rem;
+}
+
+.shipEl,
+.hit {
+  border: 2px solid blue;
+  background: repeating-linear-gradient(-45deg, #555 0, #555 2px, transparent 1px, transparent 5px);
+}
+
+.deadarea {
+  background: rgba(117, 190, 248, 0.2);
+}
+
+.hit {
+  border: 2px solid red;
+  background: repeating-linear-gradient(-45deg, red 0, red 2px, transparent 1px, transparent 5px);
+}
+
+.footer {
+  position: fixed;
+  bottom: 1vmax;
+  right: 3vmax;
+}
+
+.link {
+  width: max-content;
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+  transition: transform 0.6s;
+}
+
+.link:hover {
+  transform: scale(1.2);
+}
+
+.list {
+  margin-left: 34px;
+  max-width: 35vw;
+}
+
+.listWide {
+  max-width: 60vw;
+}
+
+.shipsListTitle {
+  margin: 12px 0 33px;
+  font-size: larger;
+  font-weight: 500;
+}
+
+.shipsList {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 1;
+  align-items: flex-start;
+  height: fit-content;
+}

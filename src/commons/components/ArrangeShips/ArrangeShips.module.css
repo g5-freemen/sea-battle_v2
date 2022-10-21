@@ -1,0 +1,48 @@
+.menu {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: auto;
+  margin-left: 62px;
+  grid-area: c;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.title {
+  margin: 1rem 0 0 0;
+  padding: 0;
+}
+
+.remark {
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.remark p {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.list {
+  list-style: none;
+}
+
+.list li {
+  width: fit-content;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.list li:hover {
+  transform: scale(1.2);
+}
+
+.menuShips {
+  display: flex;
+  flex-flow: row wrap;
+  width: 50%;
+  margin-top: 10px;
+}

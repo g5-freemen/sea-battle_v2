@@ -1,0 +1,18 @@
+.battlefield-digits {
+  display: grid;
+  grid-area: d;
+}
+
+.battlefield-letters {
+  display: grid;
+  grid-area: l;
+}
+
+.idx {
+  width: 30px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
