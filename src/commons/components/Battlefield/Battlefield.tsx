@@ -80,7 +80,6 @@ export default function Battlefield() {
 
   return (
     <div className={classNames(styles.wrapper, timeMachineWorks && styles.darken)}>
-      {/* {timeMachineWorks && <div className={styles.darken} />} */}
       <button
         type="button"
         className={styles.btnLang}
@@ -113,8 +112,8 @@ export default function Battlefield() {
               <div className={styles.battlefieldPad} ref={refCompBF}>
                 {compBF.length === 10 &&
                   compBF.flat().map((el: string) => (
-                    // <span className={el === 'X' ? styles.hit : styles.empty} key={uuid()}>
-                    <span className={getStyles(el)} key={uuid()}>
+                    <span className={el === 'X' ? styles.hit : styles.empty} key={uuid()}>
+                      {/* <span className={getStyles(el)} key={uuid()}> */}
                       {el.includes('*') && '*'}
                     </span>
                   ))}
