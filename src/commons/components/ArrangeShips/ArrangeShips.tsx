@@ -23,14 +23,6 @@ import { CheckProps } from './types';
 import styles from './ArrangeShips.module.css';
 
 export default function ArrangeShips() {
-  // const {
-  //   lang,
-  //   message,
-  //   playerShips,
-  //   arrangeShipsMode,
-  //   setArrangeShipsMode,
-  //   setArrangeShips,
-  // } = useContext(BattlefieldContext);
   const dispatch = useDispatch();
   const language = useSelector(selectLanguage);
   const playerShips = useSelector(selectPlayerShips);
@@ -115,8 +107,6 @@ export default function ArrangeShips() {
         dispatch(setCompBF(newBF));
         dispatch(setCompShips(compShips.filter((el: { num: number }) => el.num !== num)));
       }
-      document.onmousemove = null;
-      // if (trg) trg.onmouseup = null;
     } else if ((!comp && arrangeShipsMode === 'auto') || comp) {
       // retry to set ship if bad position (auto set & comp bf)
       checkSetShip(options(comp, { num, length }));
@@ -124,7 +114,6 @@ export default function ArrangeShips() {
   };
 
   const setShip = (trg: HTMLDivElement, num: number, length: number) => {
-    console.log(num);
     const rect = trg.getBoundingClientRect();
     let shipCol, shipRow;
 
@@ -137,9 +126,7 @@ export default function ArrangeShips() {
     if (shipCol === undefined || shipRow === undefined || shipCol < 1 || shipRow < 1) return;
 
     if (arrangeShipsMode !== 'auto') {
-      // checkSetShip(shipCol, shipRow, false);
       checkSetShip({ shipCol, shipRow, comp: false, orientY: orientY[num], num, length });
-      // setMovingShip(false);
       document.onmousemove = null;
     }
   };

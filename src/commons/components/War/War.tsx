@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import uuid from 'react-uuid';
 import { message } from '../../../assets/translation/messages';
 import {
   reset,
   saveHistory,
-  selectBFCoordPC,
   selectCompBF,
   selectHistory,
   selectLanguage,
@@ -38,7 +37,6 @@ const War = React.forwardRef((props: Props, ref) => {
   const { width, height } = useWindowDimensions();
   const dispatch = useDispatch();
   const language = useSelector(selectLanguage);
-  const bfCoord = useSelector(selectBFCoordPC);
   const playerBF = useSelector(selectPlayerBF);
   const compBF = useSelector(selectCompBF);
   const shipsList = useSelector(selectShipsList);
@@ -76,15 +74,8 @@ const War = React.forwardRef((props: Props, ref) => {
     return false;
   }
 
-  useEffect(() => {
-    if (shooting.length) {
-      shootCheck(shooting[0], shooting[1]);
-    }
-  }, [shooting]);
-
   function shootCheck(x: number, y: number) {
     if (checkWinner()) return;
-    dispatch(setTurnNum(turnNum + 1));
 
     if (turn.includes('comp') && compLastHit !== null) {
       // comp shoot second time the same ship
@@ -129,6 +120,7 @@ const War = React.forwardRef((props: Props, ref) => {
         }, getRnd() * 100);
       }
       setShooting([]);
+      if (isPlayer) dispatch(setTurnNum(turnNum + 1));
     } else if (el === 'X' || el.includes('*')) {
       // shoot second time the same point
       if (turn.startsWith('comp')) {
@@ -138,6 +130,8 @@ const War = React.forwardRef((props: Props, ref) => {
       return;
     } else {
       // miss the target
+      if (isPlayer) dispatch(setTurnNum(turnNum + 1));
+
       newBF[y - 1][x - 1] = el === 'D' ? '*D' : '*';
       play('miss');
       dispatch(isPlayer ? setCompBF(newBF) : setPlayerBF(newBF));
@@ -152,6 +146,12 @@ const War = React.forwardRef((props: Props, ref) => {
       }, getRnd() * 100);
     }
   }
+
+  useEffect(() => {
+    if (shooting.length) {
+      shootCheck(shooting[0], shooting[1]);
+    }
+  }, [shooting]);
 
   useEffect(() => {
     if (elCompBF) {
@@ -192,7 +192,6 @@ const War = React.forwardRef((props: Props, ref) => {
       }, getRnd() * 100);
     }
   }, [turn]);
-  // }, [turn, bfCoord]);
 
   useEffect(() => {
     if (alarm) setTimeout(() => setAlarm(''), 2500);

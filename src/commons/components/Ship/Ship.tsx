@@ -1,21 +1,5 @@
-import React, { useState, useEffect, useRef, MouseEvent, MouseEventHandler } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import uuid from 'react-uuid';
-import {
-  selectArrangeShipsMode,
-  selectBFCoord,
-  selectCompBF,
-  selectCompShips,
-  selectPlayerBF,
-  selectPlayerShips,
-  setCompBF,
-  setCompShips,
-  setPlayerBF,
-  setPlayerShips,
-} from '../../redux/reducers/globalReducer';
+import React, { useState, useRef, MouseEvent } from 'react';
 import { ShipType } from '../../redux/reducers/types';
-import { getRnd } from '../../utils/helpers';
-// import { checkSetShip } from './helpers';
 import styles from './Ship.module.css';
 
 type Props = {
