@@ -41,9 +41,11 @@ const War = React.forwardRef((props: Props, ref) => {
   const playerBF = useSelector(selectPlayerBF);
   const compBF = useSelector(selectCompBF);
   const shipsList = useSelector(selectShipsList);
-  const turn = useSelector(selectTurn);
-  const turnNum = useSelector(selectTurnNum);
   const history = useSelector(selectHistory);
+  const turnNum = useSelector(selectTurnNum);
+  const turn = useSelector(selectTurn);
+  const isPlayer = turn === 'player';
+  const isComp = turn.startsWith('comp');
 
   const [alarm, setAlarm] = useState<string>('');
   const [compLastHit, setCompLastHit] = useState('');
@@ -64,8 +66,7 @@ const War = React.forwardRef((props: Props, ref) => {
   }, [turnNum]);
 
   const checkWinner = useCallback(() => {
-    const isComp = turn.startsWith('comp');
-    if (isComp || turn === 'player') {
+    if (isComp || isPlayer) {
       const BF = isComp ? playerBF : compBF;
       if (BF.flat().filter((el: string) => Number.isFinite(+el)).length === 0) {
         dispatch(setTurn(isComp ? 'winComp' : 'winPlayer'));
@@ -73,12 +74,12 @@ const War = React.forwardRef((props: Props, ref) => {
       }
     }
     return false;
-  }, [turn, playerBF, compBF]);
+  }, [isComp, isPlayer, playerBF, compBF]);
 
   function shootCheck(x: number, y: number) {
     if (checkWinner()) return;
 
-    if (turn.includes('comp') && compLastHit) {
+    if (isComp && compLastHit) {
       // comp shoot second time the same ship
       const playerBFstate = JSON.parse(JSON.stringify(playerBF));
 
@@ -104,19 +105,17 @@ const War = React.forwardRef((props: Props, ref) => {
       }
     }
 
-    const isPlayer = turn === 'player';
-    let newBF = JSON.parse(JSON.stringify(turn === 'player' ? compBF : playerBF));
+    let newBF = JSON.parse(JSON.stringify(isPlayer ? compBF : playerBF));
     const el = newBF[y - 1][x - 1];
     // hit the target
     if (Number.isFinite(+el)) {
-      const newEl = 'X' + el;
-      turn.startsWith('comp') && setCompLastHit(newEl);
-      newBF[y - 1][x - 1] = newEl;
+      if (isComp) setCompLastHit(el);
+      newBF[y - 1][x - 1] = 'X' + el;
       play('hit');
       dispatch(isPlayer ? setCompBF(newBF) : setPlayerBF(newBF));
       setAlarm(isPlayer ? 'playerHits' : 'compHits');
 
-      if (turn.includes('comp')) {
+      if (isComp) {
         const newState = turn + uuid();
         setTimeout(() => {
           dispatch(setTurn(newState));
@@ -126,7 +125,7 @@ const War = React.forwardRef((props: Props, ref) => {
       if (isPlayer) dispatch(setTurnNum(turnNum + 1));
     } else if (el.includes('X') || el.includes('*')) {
       // shoot second time the same point
-      if (turn.startsWith('comp')) {
+      if (isComp) {
         dispatch(setTurn(turn + uuid()));
       }
       setShooting([]);
@@ -143,7 +142,7 @@ const War = React.forwardRef((props: Props, ref) => {
         setShooting([]);
         if (isPlayer) {
           dispatch(setTurn('comp'));
-        } else if (turn.startsWith('comp')) {
+        } else if (isComp) {
           dispatch(setTurn('player'));
         }
       }, getRnd() * (turnNum > 40 ? turnNum : 99));
