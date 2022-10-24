@@ -55,23 +55,17 @@ export default function Battlefield() {
       if (val.includes('D') && !comp) return styles.deadarea;
       if (val.includes('X')) {
         if (val.length === 2) {
-          if (comp) {
-            const num = +val[1];
-            if (shipsList && !shipsList.find((el) => el.num === num)) {
-              return styles.dead;
-            }
-          } else {
-            const num = val[1];
-            if (!playerBF.flat().find((el: string) => el === num)) {
-              return styles.dead;
-            }
+          const num = val[1];
+          const BF = comp ? compBF : playerBF;
+          if (!BF.flat().find((el: string) => el === num)) {
+            return styles.dead;
           }
         }
         return styles.hit;
       }
       return styles.empty;
     },
-    [shipsList, playerBF],
+    [compBF, playerBF],
   );
 
   const shoot = ({ clientX, clientY }: any) => {

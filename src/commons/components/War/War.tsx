@@ -46,7 +46,7 @@ const War = React.forwardRef((props: Props, ref) => {
   const history = useSelector(selectHistory);
 
   const [alarm, setAlarm] = useState<string>('');
-  const [compLastHit, setCompLastHit] = useState(null);
+  const [compLastHit, setCompLastHit] = useState('');
 
   const turnBack = useCallback(() => {
     const newTurnNum = turnNum - 1;
@@ -78,11 +78,11 @@ const War = React.forwardRef((props: Props, ref) => {
   function shootCheck(x: number, y: number) {
     if (checkWinner()) return;
 
-    if (turn.includes('comp') && compLastHit !== null) {
+    if (turn.includes('comp') && compLastHit) {
       // comp shoot second time the same ship
       const playerBFstate = JSON.parse(JSON.stringify(playerBF));
 
-      if (playerBFstate.flat().toString().includes(compLastHit)) {
+      if (playerBFstate.flat().includes(compLastHit)) {
         if (Math.random() < 0.4) {
           // chance < 40%
           let stop = false;
@@ -91,15 +91,16 @@ const War = React.forwardRef((props: Props, ref) => {
               if (playerBFstate[i][j] === compLastHit && !stop) {
                 play('hit');
                 playerBFstate[i][j] = 'X' + playerBFstate[i][j];
-                dispatch(setTurn(turn + uuid()));
                 stop = true;
+                dispatch(setPlayerBF(playerBFstate));
+                dispatch(setTurn(turn + uuid()));
               }
             }
           }
-          setCompLastHit(null);
+          setCompLastHit('');
           dispatch(setPlayerBF(playerBFstate));
           return;
-        } else setCompLastHit(null);
+        } else setCompLastHit('');
       }
     }
 
@@ -108,8 +109,9 @@ const War = React.forwardRef((props: Props, ref) => {
     const el = newBF[y - 1][x - 1];
     // hit the target
     if (Number.isFinite(+el)) {
-      turn.startsWith('comp') && setCompLastHit(el);
-      newBF[y - 1][x - 1] = 'X' + el;
+      const newEl = 'X' + el;
+      turn.startsWith('comp') && setCompLastHit(newEl);
+      newBF[y - 1][x - 1] = newEl;
       play('hit');
       dispatch(isPlayer ? setCompBF(newBF) : setPlayerBF(newBF));
       setAlarm(isPlayer ? 'playerHits' : 'compHits');
