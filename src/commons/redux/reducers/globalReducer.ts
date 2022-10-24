@@ -27,7 +27,7 @@ const initialState: State = {
   playerBF: Array(10)
     .fill('-')
     .map(() => Array(10).fill('-')),
-  bfCoord: {},
+  bfCoord: null,
   bfCoordPC: null,
   playerShips: null,
   compShips: null,

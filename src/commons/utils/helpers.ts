@@ -4,6 +4,7 @@ import miss from '../../assets/sounds/miss.mp3';
 import fight from '../../assets/sounds/fight.mp3';
 import winComp from '../../assets/sounds/winComp.mp3';
 import winPlayer from '../../assets/sounds/winPlayer.mp3';
+import { BFCoord } from '../redux/reducers/types';
 
 export function createShips() {
   let n = 0,
@@ -24,7 +25,7 @@ export function getRnd(i = 0) {
   return i;
 }
 
-export const getBFcoord = (box: DOMRect) => ({
+export const getBFcoord = (box: DOMRect): BFCoord => ({
   top: box.top,
   bottom: box.bottom,
   left: box.left,
