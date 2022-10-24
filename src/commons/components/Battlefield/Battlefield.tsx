@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectBFCoord,
   selectBFCoordPC,
   selectCompBF,
   selectLanguage,
@@ -13,6 +12,7 @@ import {
   setLanguage,
 } from '../../redux/reducers/globalReducer';
 import uuid from 'react-uuid';
+import classNames from 'classnames';
 import { message } from '../../../assets/translation/messages';
 import LangRuImg from '../../../assets/img/lang_ru.webp';
 import LangEnImg from '../../../assets/img/lang_en.webp';
@@ -20,11 +20,11 @@ import DrawIdx from '../DrawIdx/DrawIdx';
 import ArrangeShips from '../ArrangeShips/ArrangeShips';
 import War from '../War/War';
 import { getBFcoord } from '../../utils/helpers';
-import classNames from 'classnames';
 import useWindowDimensions from '../../utils/hooks';
 import styles from './Battlefield.module.css';
 import Ship from '../Ship/Ship';
 import { ShipType } from '../../redux/reducers/types';
+import { useCallback } from 'react';
 
 export default function Battlefield() {
   const { width, height, isVertical } = useWindowDimensions();
@@ -41,20 +41,38 @@ export default function Battlefield() {
   const [shooting, setShooting] = useState<[number, number] | []>([]);
   const [timeMachineWorks, setTimeMachineWorks] = useState(false);
 
-  const changeLanguage = () => {
+  const changeLanguage = useCallback(() => {
     const newLang = language === 'en' ? 'ru' : 'en';
     dispatch(setLanguage(newLang));
     document.title = message[newLang].gameTitle;
-  };
+  }, [language]);
 
   const languageImg = language === 'ru' ? LangRuImg : LangEnImg;
 
-  const getStyles = (val: string) => {
-    if (Number.isFinite(+val)) return styles.shipEl;
-    if (val === 'D' || val === '*D') return styles.deadarea;
-    if (val === 'X') return styles.hit;
-    return styles.empty;
-  };
+  const getStyles = useCallback(
+    (val: string, comp: boolean) => {
+      if (Number.isFinite(+val) && !comp) return styles.shipEl;
+      if (val.includes('D') && !comp) return styles.deadarea;
+      if (val.includes('X')) {
+        if (val.length === 2) {
+          if (comp) {
+            const num = +val[1];
+            if (shipsList && !shipsList.find((el) => el.num === num)) {
+              return styles.dead;
+            }
+          } else {
+            const num = val[1];
+            if (!playerBF.flat().find((el: string) => el === num)) {
+              return styles.dead;
+            }
+          }
+        }
+        return styles.hit;
+      }
+      return styles.empty;
+    },
+    [shipsList, playerBF],
+  );
 
   const shoot = ({ clientX, clientY }: any) => {
     if (!bfCoordPC || !turn.includes('player') || shooting.length) return;
@@ -95,7 +113,7 @@ export default function Battlefield() {
           <div className={styles.battlefieldPad} ref={refPlayerBF}>
             {playerBF.length === 10 &&
               playerBF.flat().map((el: string) => (
-                <span key={uuid()} className={getStyles(el)}>
+                <span key={uuid()} className={getStyles(el, false)}>
                   {el.includes('*') && '*'}
                 </span>
               ))}
@@ -112,8 +130,8 @@ export default function Battlefield() {
               <div className={styles.battlefieldPad} ref={refCompBF}>
                 {compBF.length === 10 &&
                   compBF.flat().map((el: string) => (
-                    <span className={el === 'X' ? styles.hit : styles.empty} key={uuid()}>
-                      {/* <span className={getStyles(el)} key={uuid()}> */}
+                    // <span className={el === 'X' ? styles.hit : styles.empty} key={uuid()}>
+                    <span className={getStyles(el, true)} key={uuid()}>
                       {el.includes('*') && '*'}
                     </span>
                   ))}
