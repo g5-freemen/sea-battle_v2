@@ -7,12 +7,13 @@ export type Language = 'en' | 'ru';
 export type ArrangeShipsMode = 'begin' | 'manual' | 'auto' | 'playerReady';
 export type ShipType = { num: number; length: number };
 export type Turn = 'begin' | 'player' | 'comp' | 'winComp' | 'winPlayer';
+export type BF = Array<Array<string>>;
 
 export type State = {
   language: Language;
   shipsArranged: boolean;
   arrangeShipsMode: ArrangeShipsMode;
-  compBF: Array<Array<string>>;
+  compBF: BF;
   playerBF: Array<Array<string>>;
   bfCoord: any;
   bfCoordPC: any;
@@ -21,5 +22,11 @@ export type State = {
   shipsList: Array<ShipType> | null;
   turn: Turn;
   turnNum: number;
-  history: any;
+  history: {
+    [key: string]: {
+      compBF: BF;
+      playerBF: BF;
+      shipsList: Array<ShipType> | null;
+    };
+  };
 };

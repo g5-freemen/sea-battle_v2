@@ -17,13 +17,13 @@ export default function DrawIdx({ type }: Props) {
   return (
     <div className={styles[fieldType]}>
       {letters[language].split('').map((item, i) => (
-        <span
+        <div
           className={styles.idx}
           key={uuid()}
           style={isDigits ? { gridColumn: i + 1 } : { gridRow: i + 1 }}
         >
           {isDigits ? i + 1 : item}
-        </span>
+        </div>
       ))}
     </div>
   );

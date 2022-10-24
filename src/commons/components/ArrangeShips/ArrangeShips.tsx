@@ -66,7 +66,7 @@ export default function ArrangeShips() {
     }
 
     if (putOk) {
-      let newBF = JSON.parse(JSON.stringify(comp ? compBF : playerBF));
+      const newBF = JSON.parse(JSON.stringify(comp ? compBF : playerBF));
 
       // set ship in array BF
       for (let i = 0; i < length; i++) {
@@ -91,7 +91,7 @@ export default function ArrangeShips() {
 
           if (coordY < 0 || coordX < 0 || coordY > 9 || coordX > 9) continue;
 
-          let el = newBF[coordY][coordX];
+          const el = newBF[coordY][coordX];
           if (el === undefined) continue;
 
           if (!Number.isFinite(+el) && el !== 'D') {

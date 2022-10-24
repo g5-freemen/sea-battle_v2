@@ -105,7 +105,7 @@ const War = React.forwardRef((props: Props, ref) => {
       }
     }
 
-    let newBF = JSON.parse(JSON.stringify(isPlayer ? compBF : playerBF));
+    const newBF = JSON.parse(JSON.stringify(isPlayer ? compBF : playerBF));
     const el = newBF[y - 1][x - 1];
     // hit the target
     if (Number.isFinite(+el)) {
@@ -165,9 +165,9 @@ const War = React.forwardRef((props: Props, ref) => {
 
   useEffect(() => {
     if (elCompBF) {
-      if (turn === 'player') {
+      if (isPlayer) {
         elCompBF.style.cursor = 'pointer';
-      } else if (turn.startsWith('comp')) {
+      } else if (isComp) {
         elCompBF.style.cursor = 'wait';
       } else {
         elCompBF.style.cursor = 'auto';
@@ -188,10 +188,10 @@ const War = React.forwardRef((props: Props, ref) => {
       return;
     }
 
-    if (turn.startsWith('comp')) {
+    if (isComp) {
       setTimeout(() => {
         shootCheck(getRnd(), getRnd());
-      }, getRnd() * 100);
+      }, getRnd() * 66);
     }
   }, [turn]);
 
