@@ -15,7 +15,16 @@ import {
   SET_TURN,
   SET_TURN_NUM,
 } from './actions/globalActions';
-import { ActionType, ArrangeShipsMode, Language, ShipType, State, Turn } from './types';
+import {
+  ActionType,
+  ArrangeShipsMode,
+  BF,
+  BFCoord,
+  Language,
+  ShipType,
+  State,
+  Turn,
+} from './types';
 
 const initialState: State = {
   language: window.navigator.language.includes('ru') ? 'ru' : 'en',
@@ -103,7 +112,7 @@ export const setPlayerShips = (value: Array<ShipType> | null) => ({
   payload: value,
 });
 
-export const setPlayerBF = (value: any) => ({
+export const setPlayerBF = (value: BF) => ({
   type: SET_PLAYER_BF,
   payload: value,
 });
@@ -118,17 +127,17 @@ export const setShipsList = (value: Array<ShipType> | null) => ({
   payload: value,
 });
 
-export const setCompBF = (value: any) => ({
+export const setCompBF = (value: BF) => ({
   type: SET_COMP_BF,
   payload: value,
 });
 
-export const setBFCoord = (value: any) => ({
+export const setBFCoord = (value: BFCoord) => ({
   type: SET_BF_COORD,
   payload: value,
 });
 
-export const setBFCoordPC = (value: any) => ({
+export const setBFCoordPC = (value: BFCoord) => ({
   type: SET_BF_COORD_PC,
   payload: value,
 });

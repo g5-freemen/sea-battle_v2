@@ -6,7 +6,7 @@ type Props = {
   data: ShipType;
   orientY: boolean[];
   setOrientY?: any;
-  setShip?: any;
+  setShip?: (trg: HTMLDivElement, num: number, length: number) => void;
 };
 
 export default function Ship({ data, orientY, setOrientY, setShip }: Props) {
@@ -20,7 +20,7 @@ export default function Ship({ data, orientY, setOrientY, setShip }: Props) {
     if (e.button !== 0 || !trg) return;
 
     if (movingShip) {
-      setShip(trg, num, length);
+      if (setShip) setShip(trg, num, length);
       setMovingShip(false);
     }
 
@@ -38,6 +38,7 @@ export default function Ship({ data, orientY, setOrientY, setShip }: Props) {
 
   function handleRotate(ev: MouseEvent) {
     ev.preventDefault();
+    if (!setOrientY) return;
     setOrientY((prev: boolean[]) => {
       const arr = [...prev];
       arr[num] = !arr[num];
